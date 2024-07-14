@@ -1,3 +1,5 @@
+console.log("Welcome to the calculator!")
+
 function add (number1, number2) {
     return number1 + number2;
 }
@@ -43,4 +45,41 @@ function operate (number1, number2, operator) {
 }
 
 
-console.log(operate(1, 2, "/"))
+const numberButtons = [
+    document.querySelector("#zeroButton"), 
+    document.querySelector("#oneButton"), 
+    document.querySelector("#twoButton"), 
+    document.querySelector("#threeButton"), 
+    document.querySelector("#fourButton"), 
+    document.querySelector("#fiveButton"), 
+    document.querySelector("#sixButton"), 
+    document.querySelector("#sevenButton"), 
+    document.querySelector("#eightButton"), 
+    document.querySelector("#nineButton")
+]
+
+for (let index = 0; index < 10; index++) {
+    numberButtons[index].addEventListener("click", () => console.log(index))
+}
+
+
+const otherButtons = {
+    caButton: document.querySelector("#caButton"),
+    delButton: document.querySelector("#delButton"),
+    equalButton: document.querySelector("#equalButton"),
+    plusButton: document.querySelector("#plusButton"),
+    substractButton: document.querySelector("#substractButton"),
+    multiplyButton: document.querySelector("#multiplyButton"),
+    divideButton: document.querySelector("#divideButton"),
+};
+
+function handleButtonPress (buttonPressed) {
+    console.log(buttonPressed)
+}
+
+
+let value1
+let value2
+let operator
+
+console.log(otherButtons)

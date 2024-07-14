@@ -2,6 +2,10 @@
 
 A web based basic calculator powered by JavaScript.
 
+## Use on the web:
+
+https://akipoh.github.io/calculator/
+
 ## Development
 
 ### Dev Stage 1
@@ -22,7 +26,7 @@ A web based basic calculator powered by JavaScript.
 
 ### Dev Stage 2
 
-- [ ] Make UI in HTML and CSS (responsive design)
+- [x] Make UI in HTML and CSS (responsive design)
     - Context display
         - Empty
         - After math operator pressed number1 and math operator displayed
@@ -34,6 +38,34 @@ A web based basic calculator powered by JavaScript.
     - Clear button
         - Wipes all data
 - [ ] Implement functionality to UI
+    - flow1:
+        1. Number1
+        2. Operator
+        3. Number2
+        4. Equal
+    - flow2:
+        1. Number1
+        2. Operator
+        3. Number2
+        4. Operator (equal insert into value1) 
+        5. ...
+    - flow1:
+        1. Number1
+        2. Operator
+        3. Number2
+        4. Equal
+        5. Operator (equal into value1)
+        6. ...
+    - error1:
+        1. Number1
+        2. Equal, "ERROR: operator not given"
+    - error2:
+        1. Number1
+        2. Operator
+        3. Equal, "ERROR: second number not given"
+    - error3:
+        1. Operator / Equal, "ERROR: no number given!"
+    
 
 ### Dev Stage 3
 
