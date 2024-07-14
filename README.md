@@ -6,7 +6,7 @@ A web based basic calculator powered by JavaScript.
 
 ### Dev Stage 1
 
-- [ ] Basic math operator functions 
+- [x] Basic math operator functions 
     - [mathOperator](value1, value2)
     - Operators:
         - Add
@@ -38,6 +38,7 @@ A web based basic calculator powered by JavaScript.
 ### Dev Stage 3
 
 - [ ] Round long result numbers to fit screen
+- [ ] Handle negative numbers
 - [ ] Handle user pressing equal before entrering all numbers
 - [ ] Implement the ability to enter number, press math operator, enter number, press math operator (calculates numbers together and uses them as number1), enter number and equal. Ensure that works too after pressing equal and operator directly after, (error if result was error on the equal).
 - [ ] Handle user pressing math operator before entering number1
