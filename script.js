@@ -24,6 +24,7 @@ function validateOperator (operator) { //true if good
     return ["+", "-", "*", "/"].includes(operator);
 }
 
+
 function operate (number1, number2, operator) {
     if (!validateNumber(number1)) {return `number 1: "${number1}" not valid input!`}
     if (!validateNumber(number2)) {return `number 2: "${number2}" not valid input!`}
@@ -40,5 +41,6 @@ function operate (number1, number2, operator) {
     }
     return "ERROR: Operator function reached end without result!"
 }
+
 
 console.log(operate(1, 2, "/"))
