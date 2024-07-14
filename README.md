@@ -15,7 +15,7 @@ A web based basic calculator powered by JavaScript.
         - Divide
             - Return error message if trying to divide by 0
     - Returns result
-- [ ] Operator function
+- [x] Operator function
     - operate(value1, value2, operator)
     - Decides which math operator function to call, returns output
 
