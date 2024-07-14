@@ -22,7 +22,12 @@ body {
     flex-direction: column;
 }
 
-#currentDisplay {
+#mainDisplay, #infoDisplay {
+    white-space: nowrap;
+    overflow-y: auto;
+}
+
+#mainDisplay {
     font-size: 1.5em;
 }
 

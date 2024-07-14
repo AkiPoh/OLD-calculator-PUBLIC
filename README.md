@@ -37,7 +37,7 @@ https://akipoh.github.io/calculator/
     - Equal button
     - Clear button
         - Wipes all data
-- [ ] Implement functionality to UI
+- [x] Implement functionality to UI
     - flow1:
         1. Number1
         2. Operator
@@ -49,7 +49,7 @@ https://akipoh.github.io/calculator/
         3. Number2
         4. Operator (equal insert into value1) 
         5. ...
-    - flow1:
+    - flow3:
         1. Number1
         2. Operator
         3. Number2
@@ -65,18 +65,10 @@ https://akipoh.github.io/calculator/
         3. Equal, "ERROR: second number not given"
     - error3:
         1. Operator / Equal, "ERROR: no number given!"
-    
-
-### Dev Stage 3
-
-- [ ] Round long result numbers to fit screen
-- [ ] Handle negative numbers
-- [ ] Handle user pressing equal before entrering all numbers
-- [ ] Implement the ability to enter number, press math operator, enter number, press math operator (calculates numbers together and uses them as number1), enter number and equal. Ensure that works too after pressing equal and operator directly after, (error if result was error on the equal).
-- [ ] Handle user pressing math operator before entering number1
 
 ### Dev Stage Maybe
 
 - [ ] Allow user to enter floating point numbers
 - [ ] Backspace button
 - [ ] Keyboard support
+- [ ] Handle negative numbers
