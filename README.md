@@ -78,7 +78,7 @@ https://akipoh.github.io/calculator/
 - [x] Implement DEL button functionality
 - [x] Implement the ability set number to be negative by pressing - as the first character
 - [x] When result active and DEL pressed remove last character of result, set it as number1, clear infoDisplay and variables
-- [ ] Add section at bottom for link to GitHub repo and Github profile, reserve space for paste error message
+- [x] Add section at bottom for link to GitHub repo
 - [ ] Implement ability to enter floating point numbers
 
 

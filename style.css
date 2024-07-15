@@ -3,6 +3,7 @@ body {
     box-sizing: border-box;
     height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     background-color: rgb(255, 255, 247);
 }
@@ -15,10 +16,9 @@ body {
 }
 
 #calculator {
-    padding: 10px;
+    margin: 10px 10px, 5px, 10px;
     box-sizing: border-box;
-    height: 100%;
-    width: 100%;
+    flex: 1;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -141,9 +141,38 @@ button:active {
     background-color:  #d7ece0;
 }
 
+footer {
+    margin: 5px;
+}
+
+#footerRepositoryInfo {
+    font-size: 0.45em;
+    color: darkgrey;
+    font-family: sans-serif;
+    padding: 0px;
+    margin: 0px;
+}
+
+#footerRepositoryLink {
+    font-size: 1em;
+    color: darkgrey;
+    font-family: sans-serif;
+    text-decoration: none;    
+}
+
+#footerRepositoryLink:hover {
+    text-decoration: underline;
+}
+
+#footerRepositoryLink:active {
+    text-decoration: underline;
+}
 
 
 @media (max-width: 600px) {
+    #footerRepositoryInfo {
+        font-size: 0.38em;
+    }
     #keypadLeft {
         flex: 3;
     }
