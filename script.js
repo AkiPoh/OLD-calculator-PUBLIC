@@ -76,12 +76,8 @@ function handleButtonPress (buttonPressed) {
         if (operator === "") { //is first number
             number1 += buttonPressed
         } else if (result !== "") { //number pressed after result
-            number1 = ""
-            number2 = ""
-            result = ""
-            operator = ""
+            clear()
             number1 += buttonPressed
-            infoDisplay.textContent = "\u200B"
         }
         else { //is last number
             number2 += buttonPressed
