@@ -88,6 +88,24 @@ button {
     font-family: sans-serif;
 }
 
+#zeroButton {
+    flex: 1.5;
+}
+
+#pointButton {
+    font-weight: bold;
+    background-color: #ffdf88;
+    border-color: #9d8251;
+}
+
+#pointButton:hover {
+    background-color: #fae2a1;
+}
+
+#pointButton:active {
+    background-color: #f5e2ae;
+}
+
 button:hover {
     background-color: #fddc9e;
 }
@@ -178,6 +196,9 @@ footer {
     }
     #keypadBottomLeft {
         flex: 8;
+    }
+    #zeroButton {
+        flex: 2.18;
     }
 }
 

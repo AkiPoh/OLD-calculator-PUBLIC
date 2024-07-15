@@ -97,6 +97,21 @@ function handleButtonPress (buttonPressed) {
         }  else {
             console.log("DEL button handling error")
         }
+    } else if (buttonPressed === ".") { //is dot
+        if (number1Active && !number1.includes(".")) { //is number1Active and number1 not already floating point
+            number1 += buttonPressed
+        } else if (number2Active && !number2.includes(".")){
+            number2 += buttonPressed
+        } else if (resultActive && !result.includes(".")) {
+            number1Active = true
+            resultActive = false
+            number1 = result + buttonPressed
+            operator = ""
+            number2 = ""
+            result = ""
+        } else {
+            console.log(". button handler reached end without doing anything")
+        }
     } else if (validateNumber(buttonPressed)) { //is number
         if (number1Active) { //is number1
             number1 += buttonPressed
