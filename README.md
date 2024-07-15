@@ -66,9 +66,14 @@ https://akipoh.github.io/calculator/
     - error3:
         1. Operator / Equal, "ERROR: no number given!"
 
+### Dev stage 3
+
+- [x] Improve handleButtonPress() and updateDisplay() readability by implementing logic based on currently active field
+- [x] Implement DEL button functionality
+- [x] Implement the ability set number to be negative by pressing - as the first character
+
 ### Dev Stage Maybe
 
 - [ ] Allow user to enter floating point numbers
-- [ ] Backspace button
 - [ ] Keyboard support
 - [ ] Handle negative numbers

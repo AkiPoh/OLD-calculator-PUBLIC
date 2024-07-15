@@ -55,8 +55,7 @@ function connectButtons() {
         } else {
             button.addEventListener("click", () => handleButtonPress(button.textContent))
         }
-        
-    });
+    })
 }
 
 function clear() {
@@ -75,10 +74,25 @@ function clear() {
 }
 
 function handleButtonPress (buttonPressed) {
-    if (isNaN(result) || buttonPressed === "CA") {
+    if (isNaN(result) || buttonPressed === "CA") { //is clear all
         clear()
     }
-    if (validateNumber(buttonPressed)) { //is number
+    if (buttonPressed === "DEL") { //is DEL
+        if (number1Active) {
+            number1 = number1.slice(0, number1.length - 1)
+        } else if (operatorActive || number2 === "") {
+            operator = ""
+            number1Active = true
+            operatorActive = false
+            number2Active = false
+        } else if (number2Active) {
+            number2 = number1.slice(0, number2.length - 1)
+        } else if (resultActive) {
+            clear()
+        }  else {
+            console.log("DEL button handling error")
+        }
+    } else if (validateNumber(buttonPressed)) { //is number
         if (number1Active) { //is number1
             number1 += buttonPressed
         } else if (operatorActive || number2Active) { //is number2
@@ -92,10 +106,23 @@ function handleButtonPress (buttonPressed) {
             console.log("number button handling error")
         }
     } else if (validateOperator(buttonPressed)) { //is math operator
-        if (number1Active || operatorActive) { //is number 2 and result empty
+        if (buttonPressed === "-" && number1Active && number1 === "") { //is minus operator while number1 empty, (POSITION SENSITIVE PLACEMENT)
+            number1 = "-"
+        } else if (buttonPressed === "-" && (number2Active || operatorActive) && number2 === "") { //is minus operator while number2 empty, (POSITION SENSITIVE PLACEMENT)
+            number2Active = true
+            operatorActive = false
+            number2 = "-"
+        } else if (number1Active || operatorActive) { //is number 1 active or operator active
+            if (number1 === "") { //error if number1 empty
+                resultActive = true
+                operatorActive = false
+                number1Active = false
+                result = "ERROR: number1 empty"
+            } else { //otherwise
             operatorActive = true
             number1Active = false
             operator = buttonPressed
+            }
         } else if (number2Active) { //is number2 active
             operatorActive = true
             number2Active = false
@@ -114,6 +141,8 @@ function handleButtonPress (buttonPressed) {
         }
     } else if (buttonPressed === "=") { //is equal operator
         resultActive = true
+        number1Active = false
+        operatorActive = false
         number2Active = false
         result = operate(number1, number2, operator)
     }
@@ -134,7 +163,7 @@ function updateDisplay () {
         infoDisplay.textContent = `${number1} ${operator}`
         mainDisplay.textContent = "\u200B"
     } else if (resultActive) {
-        infoDisplay.textContent = `${number1} ${operator} ${number2}`
+        infoDisplay.textContent = number1 !== "" ? `${number1} ${operator} ${number2}` : "\u200B" //display empty if nothing to display
         mainDisplay.textContent = result
     } else {
         console.log("updateDisplay() alert")
@@ -162,3 +191,8 @@ let resultActive = false
 
 clear()
 connectButtons()
+
+
+console.log("number".slice(0, 5))
+
+console.log(Number("-1"))
