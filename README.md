@@ -72,7 +72,7 @@ https://akipoh.github.io/calculator/
 
 ### Dev stage 3
 
-15.7.2024 -
+15.7.2024 - 15.7.2024
 
 - [x] Improve handleButtonPress() and updateDisplay() readability by implementing logic based on currently active field
 - [x] Implement DEL button functionality
