@@ -198,9 +198,6 @@ footer {
     #keypadBottomLeft {
         flex: 8;
     }
-    #zeroButton {
-        flex: 2.18;
-    }
 }
 
 @media (min-width: 1000px) {
