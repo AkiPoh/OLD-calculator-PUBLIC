@@ -86,7 +86,7 @@ function handleButtonPress (buttonPressed) {
             operatorActive = false
             number2Active = false
         } else if (number2Active) {
-            number2 = number1.slice(0, number2.length - 1)
+            number2 = number2.slice(0, number2.length - 1)
         } else if (resultActive) {
             clear()
         }  else {
