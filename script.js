@@ -74,7 +74,7 @@ function clear() {
 }
 
 function handleButtonPress (buttonPressed) {
-    if (isNaN(result) || buttonPressed === "CA") { //is clear all
+    if (isNaN(+result) || buttonPressed === "CA") { //is clear all
         clear()
     }
     if (buttonPressed === "DEL") { //is DEL
@@ -126,7 +126,7 @@ function handleButtonPress (buttonPressed) {
         } else if (number2Active) { //is number2 active
             operatorActive = true
             number2Active = false
-            number1 = operate(number1, number2, operator)
+            number1 = operate(number1, number2, operator).toString()
             number2 = ""
             operator = buttonPressed
         } else if (resultActive) { //is result active
@@ -144,7 +144,7 @@ function handleButtonPress (buttonPressed) {
         number1Active = false
         operatorActive = false
         number2Active = false
-        result = operate(number1, number2, operator)
+        result = operate(number1, number2, operator).toString()
     }
     console.log(number1, operator, number2, "=", result)
     console.log(`number1Active: ${number1Active}, operatorActive: ${operatorActive}, number2Active: ${number2Active}, resultActive: ${resultActive}`)
