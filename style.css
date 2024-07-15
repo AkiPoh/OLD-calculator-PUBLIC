@@ -97,7 +97,7 @@ button:active {
 }
 
 #caButton, #delButton {
-    min-width: 3em;
+    min-width: 2.5em;
     background-color: #ffefd1;
     border-color: #ac9e84;
     color: rgb(75, 75, 75);
