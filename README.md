@@ -10,6 +10,8 @@ https://akipoh.github.io/calculator/
 
 ### Dev Stage 1
 
+14.7.2024 - 14.7.2024
+
 - [x] Basic math operator functions 
     - [mathOperator](value1, value2)
     - Operators:
@@ -25,6 +27,8 @@ https://akipoh.github.io/calculator/
 
 
 ### Dev Stage 2
+
+14.7.2024 -15.7.2024
 
 - [x] Make UI in HTML and CSS (responsive design)
     - Context display
@@ -68,12 +72,53 @@ https://akipoh.github.io/calculator/
 
 ### Dev stage 3
 
+15.7.2024 -
+
 - [x] Improve handleButtonPress() and updateDisplay() readability by implementing logic based on currently active field
 - [x] Implement DEL button functionality
 - [x] Implement the ability set number to be negative by pressing - as the first character
+- [ ] Add section at bottom for link to GitHub repo and Github profile, reserve space for paste error message
+- [ ] Implement ability to enter floating point numbers
+- [ ] Implement ability to paste a number into calculator on desktop
+    - Handle numbers made floating point by "," or "."
+    - Handle negative numbers
+    - Add number to currently active if number1 or number2 active
+    - Trim
+    - Require to paste two times if a number already entered
+        - Notify at bottom error message area
+    - Error message at bottom if invalid
 
 ### Dev Stage Maybe
 
-- [ ] Allow user to enter floating point numbers
 - [ ] Keyboard support
-- [ ] Handle negative numbers
+- [ ] Implement ability to enter equations into calculator
+    - Examples: 
+        - "15 + 2"
+        - "15 - 2"
+        - "15 x 2"
+        - "15 X 2"
+        - "15 * 2"
+        - "5 : 2"
+        - "5 / 2"
+        - "5 ÷ 2"
+        - "20+20"
+        - "   20      +  20   "
+        - "20 + 20 ="
+        - "   20  +   20  =  "
+        "-20 * -20"
+    - Functionality
+        - Trim and seperatate data
+            - Delete invalid characters
+            - Seperate data
+                - Handle negative numbers
+            - Temporary variables for data
+            - Check if necessary and valid inputs received
+                - Alert at bottom if not
+        - Pasted: number1 operator number2
+            - infoDisplay: number1 operator
+            - mainDisplay: number2
+            - number2Active = true
+        - Pasted: number1 operator number2 equal
+            - infoDisplay number1 operator number2
+            - mainDisplay result
+            - resultActive = true
