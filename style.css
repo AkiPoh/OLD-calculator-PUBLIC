@@ -4,6 +4,7 @@ body {
     height: 100vh;
     display: flex;
     justify-content: center;
+    background-color: rgb(255, 255, 247);
 }
 
 * {
@@ -81,7 +82,63 @@ body {
 button {
     flex: 1;
     box-sizing: border-box;
+    background-color: #ffd588;
+    border: 2px solid #9d8251;
 }
+
+button:hover {
+    background-color: #fddc9e;
+}
+
+button:active {
+    background-color: #fce1ae;
+}
+
+#caButton, #delButton {
+    background-color: #ffefd1;
+    border-color: #ac9e84;
+    color: rgb(75, 75, 75);
+}
+
+#caButton:hover, #delButton:hover {
+    background-color: #fff2d8;
+    color: rgb(24, 24, 24);
+}
+
+#caButton:active, #delButton:active {
+    background-color: #fff5e0;
+    color: rgb(0, 0, 0);
+}
+
+
+#keypadRight button:not(#equalButton) {
+    background-color: #fcc987;
+    border-color: #a9875b;
+}
+
+#keypadRight button:not(#equalButton):hover {
+    background-color: #ffd298;
+}
+
+#keypadRight button:not(#equalButton):active {
+    background-color: #ffdcad;
+}
+
+
+#equalButton {
+    background-color:  #b4e9ca;
+    border-color: #5c856c;
+}
+
+#equalButton:hover {
+    background-color:  #cce9d8;
+}
+
+#equalButton:active {
+    background-color:  #d7ece0;
+}
+
+
 
 @media (max-width: 600px) {
     #keypadLeft {

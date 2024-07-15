@@ -31,8 +31,8 @@ function operate (number1, number2, operator) {
     if (number1 === "") {return "ERROR: number1 empty"}
     if (number2 === "") {return "ERROR: number2 empty"}
     [number1, number2] = [+number1, +number2]
-    if (!validateNumber(number1) || number1 === "") {return `number 1: "${number1}" not valid input!`}
-    if (!validateNumber(number2) || number1 === "") {return `number 2: "${number2}" not valid input!`}
+    if (!validateNumber(number1)) {return `number 1: "${number1}" not valid input!`}
+    if (!validateNumber(number2)) {return `number 2: "${number2}" not valid input!`}
     if (!validateOperator(operator)) { return `Operator: "${operator}" not valid input!`}
 
     if (operator === "+") {
