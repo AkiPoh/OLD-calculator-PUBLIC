@@ -64,6 +64,12 @@ function clear() {
     number2 = ""
     operator = ""
     result = ""
+
+    number1Active = true
+    operatorActive = false
+    number2Active = false
+    resultActive = false
+
     infoDisplay.textContent = "\u200B"
     console.log("clear")
 }
@@ -73,52 +79,70 @@ function handleButtonPress (buttonPressed) {
         clear()
     }
     if (validateNumber(buttonPressed)) { //is number
-        if (operator === "") { //is first number
+        if (number1Active) { //is number1
             number1 += buttonPressed
-        } else if (result !== "") { //number pressed after result
+        } else if (operatorActive || number2Active) { //is number2
+            number2Active = true
+            operatorActive = false
+            number2 += buttonPressed
+        } else if (resultActive) { //is result active
             clear()
             number1 += buttonPressed
+        } else {
+            console.log("number button handling error")
         }
-        else { //is last number
-            number2 += buttonPressed
-        }
-    } else if (validateOperator(buttonPressed)) { //math operator pressed
-        if (result === "" && number2 === "" && number1 === "") {
-            result = "ERROR: first number not given"
-        } else if (result === "" && number2 === "") { //math operator pressed and number2 && result is empty
+    } else if (validateOperator(buttonPressed)) { //is math operator
+        if (number1Active || operatorActive) { //is number 2 and result empty
+            operatorActive = true
+            number1Active = false
             operator = buttonPressed
-        } else if (result === "") { //math operator pressed and number1 and number2 filled
+        } else if (number2Active) { //is number2 active
+            operatorActive = true
+            number2Active = false
             number1 = operate(number1, number2, operator)
             number2 = ""
             operator = buttonPressed
-
-        } else { //math operator pressed and result filled
+        } else if (resultActive) { //is result active
+            operatorActive = true
+            resultActive = false
             number1 = result
             operator = buttonPressed
             number2 = ""
             result = ""
+        } else {
+            console.log("math operator handling error")
         }
-    } else if (buttonPressed === "=") { //equal pressed
+    } else if (buttonPressed === "=") { //is equal operator
+        resultActive = true
+        number2Active = false
         result = operate(number1, number2, operator)
     }
     console.log(number1, operator, number2, "=", result)
+    console.log(`number1Active: ${number1Active}, operatorActive: ${operatorActive}, number2Active: ${number2Active}, resultActive: ${resultActive}`)
     updateDisplay()
 }
 
 function updateDisplay () {
-    mainDisplay.textContent = operator === "" ? number1 : number2
-    if (operator !== "" && number2 === "") {
-        mainDisplay.textContent = "\u200B"
+    if (number1Active) {
+        infoDisplay.textContent = "\u200B"
+        mainDisplay.textContent = number1
+    } else if (number2Active) {
         infoDisplay.textContent = `${number1} ${operator}`
+        mainDisplay.textContent = number2
     }
-    if (result !== "") {
-        mainDisplay.textContent = result
+    else if (operatorActive) {
+        infoDisplay.textContent = `${number1} ${operator}`
+        mainDisplay.textContent = "\u200B"
+    } else if (resultActive) {
         infoDisplay.textContent = `${number1} ${operator} ${number2}`
+        mainDisplay.textContent = result
+    } else {
+        console.log("updateDisplay() alert")
     }
     if (mainDisplay.textContent === "") {
         mainDisplay.textContent = "\u200B"
     }
-    if (infoDisplay.textContent === "" || (number1 === "" && number2 === "")) {
+    if (infoDisplay.textContent === "") {
         infoDisplay.textContent = "\u200B"
     }
 }
@@ -131,6 +155,10 @@ let number1 = ""
 let number2 = ""
 let operator = ""
 let result = ""
+let number1Active = true
+let operatorActive = false
+let number2Active = false
+let resultActive = false
 
 clear()
 connectButtons()
