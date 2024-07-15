@@ -106,7 +106,7 @@ https://akipoh.github.io/calculator/
         - "   20      +  20   "
         - "20 + 20 ="
         - "   20  +   20  =  "
-        "-20 * -20"
+        - "-20 * -20"
     - Functionality
         - Trim and seperatate data
             - Delete invalid characters
