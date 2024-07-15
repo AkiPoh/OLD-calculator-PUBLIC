@@ -77,8 +77,13 @@ https://akipoh.github.io/calculator/
 - [x] Improve handleButtonPress() and updateDisplay() readability by implementing logic based on currently active field
 - [x] Implement DEL button functionality
 - [x] Implement the ability set number to be negative by pressing - as the first character
+- [x] When result active and DEL pressed remove last character of result, set it as number1, clear infoDisplay and variables
 - [ ] Add section at bottom for link to GitHub repo and Github profile, reserve space for paste error message
 - [ ] Implement ability to enter floating point numbers
+
+
+### Possible Future Features
+
 - [ ] Implement ability to paste a number into calculator on desktop
     - Handle numbers made floating point by "," or "."
     - Handle negative numbers
@@ -87,9 +92,6 @@ https://akipoh.github.io/calculator/
     - Require to paste two times if a number already entered
         - Notify at bottom error message area
     - Error message at bottom if invalid
-
-### Dev Stage Maybe
-
 - [ ] Keyboard support
 - [ ] Implement ability to enter equations into calculator
     - Examples: 

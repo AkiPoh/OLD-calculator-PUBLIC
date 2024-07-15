@@ -88,7 +88,12 @@ function handleButtonPress (buttonPressed) {
         } else if (number2Active) {
             number2 = number2.slice(0, number2.length - 1)
         } else if (resultActive) {
-            clear()
+            number1Active = true
+            resultActive = false
+            number1 = result.slice(0, result.length - 1)
+            operator = ""
+            number2 = ""
+            result = ""
         }  else {
             console.log("DEL button handling error")
         }
