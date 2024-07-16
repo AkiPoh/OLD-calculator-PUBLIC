@@ -1,10 +1,22 @@
 # calculator
 
-A web based basic calculator powered by JavaScript.
+Simple web based calculator powered by JavaScript, with intuitive UI and UX.
 
 ## Use on the web:
 
 https://akipoh.github.io/calculator/
+
+## Features
+
+- Button based user interface
+- Responsive design across PC and mobile
+
+- Numbers (0-9)
+    - Floating point numbers (.)
+    - Negative numbers (-)
+- Basic math operatorions (+, -, ÷, x)
+- Clear all (CA)
+- Backspace (DEL)
 
 ## Development
 
@@ -16,7 +28,7 @@ https://akipoh.github.io/calculator/
     - [mathOperator](value1, value2)
     - Operators:
         - Add
-        - Substract
+        - Subtract
         - Multiply
         - Divide
             - Return error message if trying to divide by 0
@@ -37,7 +49,7 @@ https://akipoh.github.io/calculator/
         - After equal pressed number1, math operator and number2 displayed
     - Current number/result
     - 0 - 9 numbers
-    - Add, substract, multiply, divide
+    - Add, subtract, multiply, divide
     - Equal button
     - Clear button
         - Wipes all data
@@ -81,8 +93,21 @@ https://akipoh.github.io/calculator/
 - [x] Add section at bottom for link to GitHub repo
 - [x] Implement ability to enter floating point numbers
 
+### Dev Stage 4
+
+16.7.2024 - 
+
+- [x] MINOR, Add ability to enter decimal point directly after math operator, ".1 + .2 = 0.3"
+- [x] DOCUMENTATION, Improve README.md by adding better project intro and adding feature list.
+- [x] MAJOR, Simplify connectButtons by not checking if number, making all buttons transmit strings as output to handleButtonPress
+- [X] MAJOR, Change things that are hard coded currently to be defined by const variables
+- [x] MINOR, Add 5 px top-padding to infoDisplay
+- [x] MINOR, Add div displayArea for infoDisplay and mainDisplay to be in, to not have 5px gap applied between them
+- [x] MINOR, change main content to be inside <main>
+
 ### Possible Future Features
 
+- [ ] Keyboard support
 - [ ] Implement ability to paste a number into calculator on desktop
     - Handle numbers made floating point by "," or "."
     - Handle negative numbers
@@ -91,8 +116,7 @@ https://akipoh.github.io/calculator/
     - Require to paste two times if a number already entered
         - Notify at bottom error message area
     - Error message at bottom if invalid
-- [ ] Keyboard support
-- [ ] Implement ability to enter equations into calculator
+- [ ] Implement abitily to paste<> equations into calculator
     - Examples: 
         - "15 + 2"
         - "15 - 2"

@@ -4,7 +4,7 @@ function add (number1, number2) {
     return number1 + number2;
 }
 
-function substract (number1, number2) {
+function subtract (number1, number2) {
     return number1 - number2;
 }
 
@@ -19,11 +19,11 @@ function divide (number1, number2) {
 
 
 function validateNumber (number) { //true if good
-    return typeof number === "number" ? true : false; 
+    return !isNaN(number); 
 }
 
 function validateOperator (operator) { //true if good
-    return ["+", "-", "x", "÷"].includes(operator);
+    return [PLUS, SUBTRACT, MULTIPLY, DIVIDE].includes(operator);
 }
 
 
@@ -31,17 +31,17 @@ function operate (number1, number2, operator) {
     if (number1 === "") {return "ERROR: number1 empty"}
     if (number2 === "") {return "ERROR: number2 empty"}
     [number1, number2] = [+number1, +number2]
-    if (!validateNumber(number1)) {return `number 1: "${number1}" not valid input!`}
-    if (!validateNumber(number2)) {return `number 2: "${number2}" not valid input!`}
+    if (!validateNumber(number1)) {return `ERROR: number 1: "${number1}" not valid input!`}
+    if (!validateNumber(number2)) {return `ERROR: number 2: "${number2}" not valid input!`}
     if (!validateOperator(operator)) { return `Operator: "${operator}" not valid input!`}
 
-    if (operator === "+") {
+    if (operator === PLUS) {
         return add(number1, number2);
-    } else if (operator === "-") {
-        return substract(number1, number2);
-    } else if (operator === "x") {
+    } else if (operator === SUBTRACT) {
+        return subtract(number1, number2);
+    } else if (operator === MULTIPLY) {
         return multiply(number1, number2);
-    } else if (operator === "÷") {
+    } else if (operator === DIVIDE) {
         return divide(number1, number2);
     }
     return "ERROR: Operator function reached end without result!"
@@ -50,169 +50,158 @@ function operate (number1, number2, operator) {
 
 function connectButtons() {
     Array.from(document.querySelectorAll("button")).forEach(button => {
-        if (!isNaN(+button.textContent)) { //if button a number
-            button.addEventListener("click", () => handleButtonPress(+button.textContent))
-        } else {
             button.addEventListener("click", () => handleButtonPress(button.textContent))
-        }
-    })
+        })
 }
 
 function clear() {
-    number1 = ""
-    number2 = ""
-    operator = ""
-    result = ""
+    number1 = EMPTY_STRING
+    number2 = EMPTY_STRING
+    operator = EMPTY_STRING
+    result = EMPTY_STRING
+    active = NUMBER_1
 
-    number1Active = true
-    operatorActive = false
-    number2Active = false
-    resultActive = false
-
-    infoDisplay.textContent = "\u200B"
-    console.log("clear")
+    infoDisplay.textContent = ZERO_WIDTH_SPACE
+    mainDisplay.textContent = ZERO_WIDTH_SPACE
+    console.log("Clear")
 }
 
 function handleButtonPress (buttonPressed) {
-    if (isNaN(+result) || buttonPressed === "CA") { //is clear all
+    if (isNaN(+result) || buttonPressed === CA) { //is clear all
         clear()
     }
-    if (buttonPressed === "DEL") { //is DEL
-        if (number1Active) {
+    
+    if (buttonPressed === DEL) { //is DEL
+        if (active === NUMBER_1) {
             number1 = number1.slice(0, number1.length - 1)
-        } else if (operatorActive || number2 === "") {
-            operator = ""
-            number1Active = true
-            operatorActive = false
-            number2Active = false
-        } else if (number2Active) {
+        } else if (active === OPERATOR || number2 === EMPTY_STRING) {
+            operator = EMPTY_STRING
+            active = NUMBER_1
+        } else if (active === NUMBER_2) {
             number2 = number2.slice(0, number2.length - 1)
-        } else if (resultActive) {
-            number1Active = true
-            resultActive = false
+        } else if (active === RESULT) {
+            active = NUMBER_1
             number1 = result.slice(0, result.length - 1)
-            operator = ""
-            number2 = ""
-            result = ""
+            operator = EMPTY_STRING
+            number2 = EMPTY_STRING
+            result = EMPTY_STRING
         }  else {
-            console.log("DEL button handling error")
+            console.log("Alert: DEL button handling error")
         }
-    } else if (buttonPressed === ".") { //is dot
-        if (number1Active && !number1.includes(".")) { //is number1Active and number1 not already floating point
+    } else if (buttonPressed === DECIMAL_POINT) { //is decimal point
+        if (active === NUMBER_1 && !number1.includes(DECIMAL_POINT)) { //is number1Active and number1 not already floating point
             number1 += buttonPressed
-        } else if (number2Active && !number2.includes(".")){
+        } else if ((active === NUMBER_2 || active === OPERATOR) && !number2.includes(DECIMAL_POINT)){ 
+            active = NUMBER_2
             number2 += buttonPressed
-        } else if (resultActive && !result.includes(".")) {
-            number1Active = true
-            resultActive = false
+        } else if (active === RESULT && !result.includes(DECIMAL_POINT)) {
+            active = NUMBER_1
             number1 = result + buttonPressed
-            operator = ""
-            number2 = ""
-            result = ""
+            operator = EMPTY_STRING
+            number2 = EMPTY_STRING
+            result = EMPTY_STRING
         } else {
-            console.log(". button handler reached end without doing anything")
+            console.log("Alert: Decimal point handling error")
         }
-    } else if (validateNumber(buttonPressed)) { //is number
-        if (number1Active) { //is number1
+    } else if (validateNumber(+buttonPressed)) { //is number
+        if (active === NUMBER_1) { //is number1
             number1 += buttonPressed
-        } else if (operatorActive || number2Active) { //is number2
-            number2Active = true
-            operatorActive = false
+        } else if (active === OPERATOR || active === NUMBER_2) { //is number2 or operator
+            active = NUMBER_2
             number2 += buttonPressed
-        } else if (resultActive) { //is result active
+        } else if (active === RESULT) { //is result active
             clear()
             number1 += buttonPressed
         } else {
-            console.log("number button handling error")
+            console.log("Alert: Number button handling error")
         }
     } else if (validateOperator(buttonPressed)) { //is math operator
-        if (buttonPressed === "-" && number1Active && number1 === "") { //is minus operator while number1 empty, (POSITION SENSITIVE PLACEMENT)
-            number1 = "-"
-        } else if (buttonPressed === "-" && (number2Active || operatorActive) && number2 === "") { //is minus operator while number2 empty, (POSITION SENSITIVE PLACEMENT)
-            number2Active = true
-            operatorActive = false
-            number2 = "-"
-        } else if (number1Active || operatorActive) { //is number 1 active or operator active
-            if (number1 === "") { //error if number1 empty
-                resultActive = true
-                operatorActive = false
-                number1Active = false
+        if (buttonPressed === MINUS && active === NUMBER_1 && number1 === EMPTY_STRING) { //is minus operator while number1 empty, (POSITION SENSITIVE PLACEMENT)
+            number1 = "-" //do not change to MINUS variable
+        } else if (buttonPressed === MINUS && (active === NUMBER_2 || active === OPERATOR) && number2 === EMPTY_STRING) { //is minus operator while number2 empty, (POSITION SENSITIVE PLACEMENT)
+            active = NUMBER_2
+            number2 = "-" //do not change to MINUS variable
+        } else if (active === NUMBER_1 || active === OPERATOR) { //is number 1 active or operator active
+            if (number1 === EMPTY_STRING) { //error if number1 empty
+                active = RESULT
                 result = "ERROR: number1 empty"
-            } else { //otherwise
-            operatorActive = true
-            number1Active = false
+            } else { //if nominal
+            active = OPERATOR
             operator = buttonPressed
             }
-        } else if (number2Active) { //is number2 active
-            operatorActive = true
-            number2Active = false
+        } else if (active === NUMBER_2) { //is number2 active
+            active = OPERATOR
             number1 = operate(number1, number2, operator).toString()
-            number2 = ""
+            number2 = EMPTY_STRING
             operator = buttonPressed
-        } else if (resultActive) { //is result active
-            operatorActive = true
-            resultActive = false
+        } else if (active === RESULT) { //is result active
+            active = OPERATOR
             number1 = result
             operator = buttonPressed
-            number2 = ""
-            result = ""
+            number2 = EMPTY_STRING
+            result = EMPTY_STRING
         } else {
-            console.log("math operator handling error")
+            console.log("Alert: Math operator handling error")
         }
-    } else if (buttonPressed === "=") { //is equal operator
-        resultActive = true
-        number1Active = false
-        operatorActive = false
-        number2Active = false
+    } else if (buttonPressed === EQUAL) { //is equal operator
+        active = RESULT
         result = operate(number1, number2, operator).toString()
     }
-    console.log(number1, operator, number2, "=", result)
-    console.log(`number1Active: ${number1Active}, operatorActive: ${operatorActive}, number2Active: ${number2Active}, resultActive: ${resultActive}`)
+    console.log(number1, operator, number2, "=", result, `Active: ${active}`)
     updateDisplay()
 }
 
 function updateDisplay () {
-    if (number1Active) {
-        infoDisplay.textContent = "\u200B"
+    if (active === NUMBER_1) {
+        infoDisplay.textContent = ZERO_WIDTH_SPACE
         mainDisplay.textContent = number1
-    } else if (number2Active) {
+    } else if (active === OPERATOR) {
+        infoDisplay.textContent = `${number1} ${operator}`
+        mainDisplay.textContent = ZERO_WIDTH_SPACE
+    } else if (active === NUMBER_2) {
         infoDisplay.textContent = `${number1} ${operator}`
         mainDisplay.textContent = number2
-    }
-    else if (operatorActive) {
-        infoDisplay.textContent = `${number1} ${operator}`
-        mainDisplay.textContent = "\u200B"
-    } else if (resultActive) {
-        infoDisplay.textContent = number1 !== "" ? `${number1} ${operator} ${number2}` : "\u200B" //display empty if nothing to display
+    } else if (active === RESULT) {
+        infoDisplay.textContent = number1 !== EMPTY_STRING ? `${number1} ${operator} ${number2}` : EMPTY_STRING //display empty if nothing to display
         mainDisplay.textContent = result
     } else {
-        console.log("updateDisplay() alert")
+        console.log("Alert: updateDisplay error")
     }
-    if (mainDisplay.textContent === "") {
-        mainDisplay.textContent = "\u200B"
+    if (mainDisplay.textContent === EMPTY_STRING) {
+        mainDisplay.textContent = ZERO_WIDTH_SPACE
     }
-    if (infoDisplay.textContent === "") {
-        infoDisplay.textContent = "\u200B"
+    if (infoDisplay.textContent === EMPTY_STRING) {
+        infoDisplay.textContent = ZERO_WIDTH_SPACE
     }
 }
 
 const mainDisplay = document.querySelector("#mainDisplay")
 const infoDisplay = document.querySelector("#infoDisplay")
 
+const ZERO_WIDTH_SPACE = "\u200B"
 
-let number1 = ""
-let number2 = ""
-let operator = ""
-let result = ""
-let number1Active = true
-let operatorActive = false
-let number2Active = false
-let resultActive = false
+const NUMBER_1 = "number1"
+const OPERATOR = "operator"
+const NUMBER_2 = "number2"
+const RESULT = "result"
+
+const CA = "CA"
+const DEL = "DEL"
+const DECIMAL_POINT = "."
+const PLUS = "+"
+const MINUS = "-"
+const SUBTRACT = MINUS
+const MULTIPLY = "x"
+const DIVIDE = "÷"
+const EQUAL = "="
+
+const EMPTY_STRING = ""
+
+let number1 = EMPTY_STRING
+let number2 = EMPTY_STRING
+let operator = EMPTY_STRING
+let result = EMPTY_STRING
+let active = NUMBER_1
 
 clear()
 connectButtons()
-
-
-console.log("number".slice(0, 5))
-
-console.log(Number("-1"))
