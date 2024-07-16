@@ -115,6 +115,8 @@ https://akipoh.github.io/calculator/
 - [x] MAJOR, related to former, Implement inputButtonIntoStandard (button)
 - [x] MINOR, related to former, Change user not to be able to press math operator or equal without valid inputs provided
     - [x] Implement validateStringNumber to check if for example number1 or number2 bad.
+- [x] MINOR, Fix equal being able to be pressed when result already active
+- [x] MINOR, Add variable for ERROR string, check for ERROR variable in result instead of number validity, in buttonHandler CA
 
 ### Possible Future Features
 

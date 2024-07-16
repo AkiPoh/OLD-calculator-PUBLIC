@@ -19,7 +19,7 @@ function divide (number1, number2) {
 
 
 function validateNumber (number) { //true if good
-    if (String(number) === "") { return false; }
+    if ((number).toString === "") { return false; }
     else { return !isNaN(number); }
 }
 
@@ -38,11 +38,11 @@ function validateOperator (operator) { //true if good
 
 
 function operate (number1, number2, operator) {
-    if (number1 === "") {return "ERROR: number1 empty"}
-    if (number2 === "") {return "ERROR: number2 empty"}
+    if (number1 === "") {return `${ERROR}: number1 empty`}
+    if (number2 === "") {return `${ERROR}: number2 empty`}
     [number1, number2] = [+number1, +number2]
-    if (!validateNumber(number1)) {return `ERROR: number 1: "${number1}" not valid input!`}
-    if (!validateNumber(number2)) {return `ERROR: number 2: "${number2}" not valid input!`}
+    if (!validateNumber(number1)) {return `${ERROR}: number 1: "${number1}" not valid input!`}
+    if (!validateNumber(number2)) {return `${ERROR}: number 2: "${number2}" not valid input!`}
     if (!validateOperator(operator)) { return `Operator: "${operator}" not valid input!`}
 
     if (operator === PLUS) {
@@ -54,7 +54,7 @@ function operate (number1, number2, operator) {
     } else if (operator === DIVIDE) {
         return divide(number1, number2);
     }
-    return "ERROR: Operator function reached end without result!"
+    return `${ERROR}: Operator function reached end without result!`
 }
 
 
@@ -66,7 +66,7 @@ function connectButtons() {
 
 function connectKeyboard () {
     document.addEventListener("keydown", event => {
-        button = String(event.key).toLowerCase()
+        button = (event.key).toString().toLowerCase()
         if (ALL_VALID.includes(button) || validateNumber(+button)) {
             handleButtonPress(button)
         }
@@ -86,7 +86,7 @@ function clear() {
 }
 
 function inputButtonIntoStandard (button) {
-    button = String(button).toLowerCase()
+    button = (button).toString().toLowerCase()
     if (CA_VALID.includes(button)) { return CA; }
     else if (DEL_VALID.includes(button)) { return DEL; }
     else if (MINUS_VALID.includes(button)) { return MINUS; } 
@@ -103,8 +103,9 @@ function inputButtonIntoStandard (button) {
 function handleButtonPress (button) {
     button = inputButtonIntoStandard(button)
 
-    if ((validateNumber(+result) && result !== EMPTY_STRING) || button === CA) { //is clear all
+    if ((result.includes(ERROR) && result !== EMPTY_STRING) || button === CA) { //is clear all
         clear()
+        console.log("HELLOOOO")
     }
     
     if (button === DEL) { //is DEL
@@ -179,9 +180,11 @@ function handleButtonPress (button) {
             console.log("Alert: Math operator handling error")
         }
 
-    } else if (button === EQUAL && validateStringNumber(number1) && validateStringNumber(number2)) { //is equal operator
+    } else if (button === EQUAL && validateStringNumber(number1) && validateStringNumber(number2) && active !== RESULT) { //is equal operator
         active = RESULT
         result = operate(number1, number2, operator).toString()
+    } else {
+        console.log("Alert: Equal handling error")
     }
 
     console.log(number1, operator, number2, "=", result, `Active: ${active}`)
@@ -216,6 +219,8 @@ const mainDisplay = document.querySelector("#mainDisplay")
 const infoDisplay = document.querySelector("#infoDisplay")
 
 const ZERO_WIDTH_SPACE = "\u200B"
+
+const ERROR = "ERROR"
 
 const NUMBER_1 = "number1"
 const OPERATOR = "operator"
