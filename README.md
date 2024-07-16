@@ -9,12 +9,13 @@ https://akipoh.github.io/calculator/
 ## Features
 
 - Button based user interface
+- Keyboard support
 - Responsive design across PC and mobile
 
 - Numbers (0-9)
     - Floating point numbers (.)
     - Negative numbers (-)
-- Basic math operatorions (+, -, ÷, x)
+- Basic math operators (+, -, ÷, x)
 - Clear all (CA)
 - Backspace (DEL)
 
@@ -97,17 +98,26 @@ https://akipoh.github.io/calculator/
 
 16.7.2024 - 
 
+#### Part 1
+
 - [x] MINOR, Add ability to enter decimal point directly after math operator, ".1 + .2 = 0.3"
 - [x] DOCUMENTATION, Improve README.md by adding better project intro and adding feature list.
 - [x] MAJOR, Simplify connectButtons by not checking if number, making all buttons transmit strings as output to handleButtonPress
 - [X] MAJOR, Change things that are hard coded currently to be defined by const variables
 - [x] MINOR, Add 5 px top-padding to infoDisplay
 - [x] MINOR, Add div displayArea for infoDisplay and mainDisplay to be in, to not have 5px gap applied between them
-- [x] MINOR, change main content to be inside <main>
+- [x] MINOR, Change main content to be inside <main>
+
+#### Part 2
+
+- [x] MAJOR, Add keyboard support
+- [x] MAJOR, Related to former, change button validation const variables to be list, to improve support supported keyboard keys, change checks to be done like this [LIST_THAT_CHECKING_AGAINST].includes(itemThatChecking)
+- [x] MAJOR, related to former, Implement inputButtonIntoStandard (button)
+- [x] MINOR, related to former, Change user not to be able to press math operator or equal without valid inputs provided
+    - [x] Implement validateStringNumber to check if for example number1 or number2 bad.
 
 ### Possible Future Features
 
-- [ ] Keyboard support
 - [ ] Implement ability to paste a number into calculator on desktop
     - Handle numbers made floating point by "," or "."
     - Handle negative numbers
@@ -116,7 +126,7 @@ https://akipoh.github.io/calculator/
     - Require to paste two times if a number already entered
         - Notify at bottom error message area
     - Error message at bottom if invalid
-- [ ] Implement abitily to paste<> equations into calculator
+- [ ] Implement abitily to paste equations into calculator
     - Examples: 
         - "15 + 2"
         - "15 - 2"

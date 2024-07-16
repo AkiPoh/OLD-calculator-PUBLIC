@@ -19,7 +19,17 @@ function divide (number1, number2) {
 
 
 function validateNumber (number) { //true if good
-    return !isNaN(number); 
+    if (String(number) === "") { return false; }
+    else { return !isNaN(number); }
+}
+
+//Input as string
+function validateStringNumber (string) {
+    if ([DECIMAL_POINT, MINUS].includes(string) && string.length === 1 || string === EMPTY_STRING) { //invalid
+        return false;
+    } else {
+        return true;
+    }
 }
 
 function validateOperator (operator) { //true if good
@@ -54,6 +64,15 @@ function connectButtons() {
         })
 }
 
+function connectKeyboard () {
+    document.addEventListener("keydown", event => {
+        button = String(event.key).toLowerCase()
+        if (ALL_VALID.includes(button) || validateNumber(+button)) {
+            handleButtonPress(button)
+        }
+    })
+}
+
 function clear() {
     number1 = EMPTY_STRING
     number2 = EMPTY_STRING
@@ -66,12 +85,29 @@ function clear() {
     console.log("Clear")
 }
 
-function handleButtonPress (buttonPressed) {
-    if (isNaN(+result) || buttonPressed === CA) { //is clear all
+function inputButtonIntoStandard (button) {
+    button = String(button).toLowerCase()
+    if (CA_VALID.includes(button)) { return CA; }
+    else if (DEL_VALID.includes(button)) { return DEL; }
+    else if (MINUS_VALID.includes(button)) { return MINUS; } 
+    else if (DECIMAL_POINT_VALID.includes(button)) { return DECIMAL_POINT; }
+    else if (validateNumber(+button)) { return button; }
+    else if (PLUS_VALID.includes(button)) { return PLUS; }
+    else if (SUBTRACT_VALID.includes(button)) { return SUBTRACT; }
+    else if (MULTIPLY_VALID.includes(button)) { return MULTIPLY; }
+    else if (DIVIDE_VALID.includes(button)) { return DIVIDE; }
+    else if (EQUAL_VALID.includes(button)) { return EQUAL; }
+    else { console.log("Alert: inputButtonIntoStandard error")}
+}
+
+function handleButtonPress (button) {
+    button = inputButtonIntoStandard(button)
+
+    if ((validateNumber(+result) && result !== EMPTY_STRING) || button === CA) { //is clear all
         clear()
     }
     
-    if (buttonPressed === DEL) { //is DEL
+    if (button === DEL) { //is DEL
         if (active === NUMBER_1) {
             number1 = number1.slice(0, number1.length - 1)
         } else if (active === OPERATOR || number2 === EMPTY_STRING) {
@@ -88,65 +124,66 @@ function handleButtonPress (buttonPressed) {
         }  else {
             console.log("Alert: DEL button handling error")
         }
-    } else if (buttonPressed === DECIMAL_POINT) { //is decimal point
+
+    } else if (button === DECIMAL_POINT) { //is decimal point
         if (active === NUMBER_1 && !number1.includes(DECIMAL_POINT)) { //is number1Active and number1 not already floating point
-            number1 += buttonPressed
+            number1 += button
         } else if ((active === NUMBER_2 || active === OPERATOR) && !number2.includes(DECIMAL_POINT)){ 
             active = NUMBER_2
-            number2 += buttonPressed
+            number2 += button
         } else if (active === RESULT && !result.includes(DECIMAL_POINT)) {
             active = NUMBER_1
-            number1 = result + buttonPressed
+            number1 = result + button
             operator = EMPTY_STRING
             number2 = EMPTY_STRING
             result = EMPTY_STRING
         } else {
             console.log("Alert: Decimal point handling error")
         }
-    } else if (validateNumber(+buttonPressed)) { //is number
+
+    } else if (validateNumber(+button)) { //is number
         if (active === NUMBER_1) { //is number1
-            number1 += buttonPressed
+            number1 += button
         } else if (active === OPERATOR || active === NUMBER_2) { //is number2 or operator
             active = NUMBER_2
-            number2 += buttonPressed
+            number2 += button
         } else if (active === RESULT) { //is result active
             clear()
-            number1 += buttonPressed
+            number1 += button
         } else {
             console.log("Alert: Number button handling error")
         }
-    } else if (validateOperator(buttonPressed)) { //is math operator
-        if (buttonPressed === MINUS && active === NUMBER_1 && number1 === EMPTY_STRING) { //is minus operator while number1 empty, (POSITION SENSITIVE PLACEMENT)
-            number1 = "-" //do not change to MINUS variable
-        } else if (buttonPressed === MINUS && (active === NUMBER_2 || active === OPERATOR) && number2 === EMPTY_STRING) { //is minus operator while number2 empty, (POSITION SENSITIVE PLACEMENT)
+
+    } else if (validateOperator(button)) { //is math operator
+        if (button === MINUS && active === NUMBER_1 && number1 === EMPTY_STRING) { //is minus operator while number1 empty, (POSITION SENSITIVE PLACEMENT)
+            number1 = button
+        } else if (button === MINUS && (active === NUMBER_2 || active === OPERATOR) && number2 === EMPTY_STRING) { //is minus operator while number2 empty, (POSITION SENSITIVE PLACEMENT)
             active = NUMBER_2
-            number2 = "-" //do not change to MINUS variable
-        } else if (active === NUMBER_1 || active === OPERATOR) { //is number 1 active or operator active
-            if (number1 === EMPTY_STRING) { //error if number1 empty
-                active = RESULT
-                result = "ERROR: number1 empty"
-            } else { //if nominal
+            number2 = button
+
+        } else if ((active === NUMBER_1 || active === OPERATOR) && validateStringNumber(number1)) { //is number 1 active or operator active AND number1 valid
             active = OPERATOR
-            operator = buttonPressed
-            }
+            operator = button
         } else if (active === NUMBER_2) { //is number2 active
             active = OPERATOR
             number1 = operate(number1, number2, operator).toString()
             number2 = EMPTY_STRING
-            operator = buttonPressed
+            operator = button
         } else if (active === RESULT) { //is result active
             active = OPERATOR
             number1 = result
-            operator = buttonPressed
+            operator = button
             number2 = EMPTY_STRING
             result = EMPTY_STRING
         } else {
             console.log("Alert: Math operator handling error")
         }
-    } else if (buttonPressed === EQUAL) { //is equal operator
+
+    } else if (button === EQUAL && validateStringNumber(number1) && validateStringNumber(number2)) { //is equal operator
         active = RESULT
         result = operate(number1, number2, operator).toString()
     }
+
     console.log(number1, operator, number2, "=", result, `Active: ${active}`)
     updateDisplay()
 }
@@ -195,6 +232,19 @@ const MULTIPLY = "x"
 const DIVIDE = "÷"
 const EQUAL = "="
 
+//MUST BE IN LOWER CASE LETTERS
+const CA_VALID = ["ca", "delete"]
+const DEL_VALID = ["del", "backspace"]
+const DECIMAL_POINT_VALID = [".", ","]
+const PLUS_VALID = ["+"]
+const MINUS_VALID = ["-"]
+const SUBTRACT_VALID = MINUS_VALID.flat(Infinity)
+const MULTIPLY_VALID = ["x", "*"]
+const DIVIDE_VALID = ["÷", "/"]
+const EQUAL_VALID = ["=", "enter"]
+
+const ALL_VALID = [CA_VALID, DEL_VALID, DECIMAL_POINT_VALID, PLUS_VALID, MINUS_VALID, SUBTRACT_VALID, MULTIPLY_VALID, DIVIDE_VALID, EQUAL_VALID].flat(Infinity)
+
 const EMPTY_STRING = ""
 
 let number1 = EMPTY_STRING
@@ -205,3 +255,4 @@ let active = NUMBER_1
 
 clear()
 connectButtons()
+connectKeyboard()
