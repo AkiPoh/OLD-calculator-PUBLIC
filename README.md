@@ -96,7 +96,7 @@ https://akipoh.github.io/calculator/
 
 ### Dev Stage 4
 
-16.7.2024 - 
+16.7.2024 - 16.7.2024
 
 #### Part 1
 
