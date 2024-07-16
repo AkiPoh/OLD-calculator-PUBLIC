@@ -13,7 +13,7 @@ function multiply (number1, number2) {
 }
 
 function divide (number1, number2) {
-    if (number2 === 0) {return "Error: bro tried to divide by zero xD";} //number not 0
+    if (number2 === 0) {return `${ERROR}: bro tried to divide by zero xD`;} //number not 0
     return number1 / number2;
 }
 
@@ -105,7 +105,6 @@ function handleButtonPress (button) {
 
     if ((result.includes(ERROR) && result !== EMPTY_STRING) || button === CA) { //is clear all
         clear()
-        console.log("HELLOOOO")
     }
     
     if (button === DEL) { //is DEL
