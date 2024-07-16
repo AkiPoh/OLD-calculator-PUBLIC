@@ -165,7 +165,7 @@ function handleButtonPress (button) {
         } else if ((active === NUMBER_1 || active === OPERATOR) && validateStringNumber(number1)) { //is number 1 active or operator active AND number1 valid
             active = OPERATOR
             operator = button
-        } else if (active === NUMBER_2) { //is number2 active
+        } else if (active === NUMBER_2 && validateStringNumber(number2)) { //is number2 active AND number2 valid
             active = OPERATOR
             number1 = operate(number1, number2, operator).toString()
             number2 = EMPTY_STRING
