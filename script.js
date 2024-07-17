@@ -244,7 +244,7 @@ const PLUS_VALID = ["+"]
 const MINUS_VALID = ["-"]
 const SUBTRACT_VALID = MINUS_VALID.flat(Infinity)
 const MULTIPLY_VALID = ["x", "*"]
-const DIVIDE_VALID = ["÷", "/"]
+const DIVIDE_VALID = ["÷", "/", ":"]
 const EQUAL_VALID = ["=", "enter"]
 
 const ALL_VALID = [CA_VALID, DEL_VALID, DECIMAL_POINT_VALID, PLUS_VALID, MINUS_VALID, SUBTRACT_VALID, MULTIPLY_VALID, DIVIDE_VALID, EQUAL_VALID].flat(Infinity)
