@@ -4,7 +4,7 @@ Simple web based calculator powered by JavaScript, with intuitive UI and UX.
 
 ## Use on the web:
 
-https://akipoh.github.io/calculator/
+https://akipoh.github.io/OLD-calculator-PUBLIC/
 
 ## Features
 
